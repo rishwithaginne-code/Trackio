@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackio - Smart Indoor Navigation System</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Existing Styles for consistency -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        /* Specific Landing Page Styles */
+        body {
+            /* Full viewport height to center content perfectly */
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling on home page */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .landing-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hero-logo-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(139, 92, 246, 0.2);
+            margin-bottom: 30px;
+            animation: fadeInZoom 0.8s ease-out, float 4s ease-in-out infinite 0.8s;
+        }
+
+        .hero-icon {
+            font-size: 50px;
+            filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.5));
+        }
+
+        .landing-title {
+            font-size: 72px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, #60a5fa, #c084fc, #ff7eb3);
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            text-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        .landing-tagline {
+            font-size: 22px;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            max-width: 600px;
+            line-height: 1.6;
+            animation: slideUp 0.8s ease-out 0.4s both;
+            font-weight: 300;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 50px;
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            text-decoration: none;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #d946ef);
+            background-size: 200% 200%;
+            border-radius: 50px;
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+            transition: all 0.4s ease;
+            animation: slideUp 0.8s ease-out 0.6s both, pulse-glow 3s infinite 1.4s, gradient-shift 5s ease infinite;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.6);
+            color: white;
+            /* pause pulse on hover */
+            animation: gradient-shift 5s ease infinite; 
+        }
+
+        .btn-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .hero-btn:hover .btn-arrow {
+            transform: translateX(6px);
+        }
+
+        /* Abstract ambient background elements */
+        .ambient-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            z-index: 0;
+            opacity: 0.3;
+            animation: blob-float 10s infinite alternate;
+        }
+
+        .blob-1 {
+            width: 450px;
+            height: 450px;
+            background: #8b5cf6;
+            top: -150px;
+            left: -150px;
+        }
+
+        .blob-2 {
+            width: 350px;
+            height: 350px;
+            background: #3b82f6;
+            bottom: -100px;
+            right: -100px;
+            animation-duration: 15s;
+            animation-direction: alternate-reverse;
+        }
+
+        @keyframes fadeInZoom {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes blob-float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.4); }
+            70% { box-shadow: 0 0 20px 20px rgba(139, 92, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+        }
+
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient blurred background blobs -->
+    <div class="ambient-blob blob-1"></div>
+    <div class="ambient-blob blob-2"></div>
+
+    <main class="landing-wrapper">
+        <div class="hero-logo-box">
+            <div class="hero-icon">🚆</div>
+        </div>
+        
+        <h1 class="landing-title">Trackio</h1>
+        <p class="landing-tagline">Smart Indoor Navigation System</p>
+        
+        <a href="index.html" class="hero-btn">
+            Get Started 
+            <span class="btn-arrow">➔</span>
+        </a>
+    </main>
+</body>
+</html>

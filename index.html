@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trackio - Smart Indoor Navigation</title>
+    <!-- Use Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+</head>
+
+<body>
+    <div class="app-container">
+
+        <header class="navbar" id="main-navbar" style="display: flex;">
+            <div class="logo">🚆 Trackio</div>
+            <nav id="main-nav">
+                <a href="#" class="nav-link active" data-target="view-navigate">Navigate</a>
+                <a href="#" class="nav-link" data-target="view-facilities">Facilities</a>
+                <a href="#" class="nav-link" data-target="view-settings">Settings</a>
+            </nav>
+        </header>
+
+        <main class="main-content page-view active-view" id="view-navigate">
+            <!-- Sidebar for controls -->
+            <aside class="controls-panel glass-panel">
+                <h2>Find Your Way</h2>
+                <div class="input-group">
+                    <label for="start-location">Current Location</label>
+                    <input type="text" id="start-location" placeholder="e.g. Platform 1, Main Entrance">
+                    <span class="or-divider">OR</span>
+                    <label class="file-upload-btn">
+                        <span>📷 Upload Station Image</span>
+                        <input type="file" id="image-upload" accept="image/*">
+                    </label>
+                    <div id="file-name" class="file-name-display"></div>
+                </div>
+
+                <div class="input-group">
+                    <label for="destination">Destination</label>
+                    <input type="text" id="destination" placeholder="e.g. Platform 4, Coffee Shop">
+                </div>
+
+                <button id="navigate-btn" class="primary-btn">Start Navigation</button>
+
+                <div class="facilities-section">
+                    <h3>Nearby Facilities</h3>
+                    <ul class="facilities-list" id="facilities-list">
+                        <li>☕ Coffee Shop - 50m</li>
+                        <li>🚻 Restrooms - 100m</li>
+                        <li>🎫 Ticket Counter - near Main Exit</li>
+                        <li>🛗 Elevator - Platform 2</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Map Area -->
+            <section class="map-view glass-panel">
+                <div class="map-container">
+                    <div id="map" style="height: 100%; width: 500px; min-height: 400px; border-radius: 12px; position: relative; z-index: 1;"></div>
+                    <div class="empty-state" id="empty-state" style="display: none;">
+                        <div class="pulse-ring"></div>
+                        <p>Enter location or upload image to map your route</p>
+                    </div>
+                </div>
+
+                <div class="route-details glass-panel" id="route-details" style="display: none;">
+                    <h3>Route Details</h3>
+                    <p id="route-path-text">From: <strong>Main Entrance</strong> ➔ To: <strong>Platform 4</strong></p>
+                    <div class="steps" id="route-steps">
+                        <!-- steps injected via JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Facilities View -->
+        <main class="page-view glass-panel" id="view-facilities" style="padding: 30px;">
+            <h2>Station Facilities Directory</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Browse all available amenities at the station.
+            </p>
+            <div class="facilities-grid">
+                <div class="facility-card">
+                    <h3>☕ Coffee Shop</h3>
+
+                    <p>Level 1, Near Entrance</p>
+                    <span class="status open">Open</span>
+                </div>
+                <div class="facility-card">
+                    <h3>🚻 Restrooms</h3>
+                    <p>All Platforms</p>
+                    <span class="status open">Open</span>
+                </div>
+                <div class="facility-card">
+                    <h3>🎫 Ticket Counter</h3>
+                    <p>Main Hall</p>
+                    <span class="status busy">Busy</span>
+                </div>
+                <div class="facility-card">
+                    <h3>🚑 First Aid</h3>
+                    <p>Platform 1</p>
+                    <span class="status open">Open</span>
+                </div>
+                <div class="facility-card">
+                    <h3>🛗 Elevators</h3>
+                    <p>Platforms 1, 2, 3</p>
+                    <span class="status open">Open</span>
+                </div>
+                <div class="facility-card">
+                    <h3>👮 Security Desk</h3>
+                    <p>Main Hall</p>
+                    <span class="status open">Open</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings View -->
+        <main class="page-view glass-panel" id="view-settings" style="padding: 30px;">
+            <h2>App Settings</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 20px;">Customize your navigation experience.</p>
+            <div class="settings-content">
+                <div class="settings-group">
+                    <label>
+                        <input type="checkbox" checked> Enable Voice Navigation Prompts
+                    </label>
+                </div>
+                <div class="settings-group">
+                    <label>
+                        <input type="checkbox"> High Contrast Map Mode
+                    </label>
+                </div>
+                <div class="settings-group">
+                    <label>
+                        <input type="checkbox" checked> Receive Station Alerts
+                    </label>
+                </div>
+                <div class="settings-group" style="display: flex; flex-direction: column; align-items: flex-start;">
+                    <label style="margin-bottom: 5px;">Default Language</label>
+                    <select>
+                        <option>English</option>
+                        <option>Español</option>
+                        <option>Français</option>
+                        <option>Hindi</option>
+                    </select>
+                </div>
+                <button class="primary-btn" onclick="alert('Settings saved successfully!')">Save Preferences</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
